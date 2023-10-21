@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  test_libs:
+    build: .
+    image: 'test_libs:1'
+    container_name: 'test_libs'
+    command: >
+      sh -c "cd src && 
+             poetry run mypy main.py &&
+             poetry run python3 main.py"
+    env_file:
+      - env/.test_libs.env
+    volumes:
+      - ./src:/service/src
+
+    stdin_open: true     # ?
+    tty: true            # ?
